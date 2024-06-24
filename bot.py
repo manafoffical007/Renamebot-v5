@@ -28,8 +28,9 @@ class Bot(Client):
         self.uptime = Config.BOT_UPTIME     
         if Config.WEBHOOK:
             app = web.AppRunner(await web_server())
-            await app.setup()       
-            await web.TCPSite(app, "0.0.0.0", 8080).start()     
+            await app.setup()
+            bind_address = "0.0.0.0"
+            await web.TCPSite(app, bind_address, Config.PORT).start()    
         print(f"{me.first_name} Is Started.....✨️")
         for id in Config.ADMIN:
             try: await self.send_message(id, f"**{me.first_name}  Is Started...**")                                
